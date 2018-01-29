@@ -1,4 +1,5 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
 const app = express.Router();
 
 const init = connection => {
@@ -21,10 +22,20 @@ const init = connection => {
     const [rows, fields] = await connection.execute('select * from users where email = ?', [req.body.email]);
     if(rows.length === 0) {
       const { name, email, passwd } = req.body;
+      // 
+      // Cria um hash como password do usuário
+      // modificado por: m4v0
+      // em 29/01/2018 - 17:28
+      //
+      // funcionalidade criptografar a 
+      // string passada pelo usuário da seha
+      //
+      const hashpwd = await bcrypt.hash(passwd, 10);
+      //
       const [ inserted, insertFields ] = await connection.execute('insert into users (name, email, password, role) values (?,?,?,?)',[
         name,
         email,
-        passwd,
+        hashpwd, // Substitui varial criando pelo mentor 'passwd' para hashpwd.
         'user'
       ]);
       const user = {
@@ -54,7 +65,17 @@ const init = connection => {
     if(rows.length === 0) {
       res.render('login', { error: 'Usuário não inválido...' })
     }else{
-      if(rows[0].password === passwd) {
+      // if(rows[0].password === passwd) { 
+      //
+      // modificado por: m4v0
+      // em 29/01/2018 - 17:28
+      //
+      // bcrypt.compare função para comparar o conteudo
+      // passado pelo usuário "senha", com a senha gravada
+      // no cadastro do usuário, se forem iguais a função
+      // retorna verdadeiro, caso contrario falso.
+      //
+      if(await bcrypt.compare(passwd, rows[0].password)) {
         const userDb = rows[0];
         const user = {
           id: userDb.id,

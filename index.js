@@ -37,6 +37,17 @@ const init = async() => {
   app.use('/admin', admin(connection));
   app.use('/groups', groups(connection));
 
+  // Rota para criar 30000 usuário
+  app.get('/create-user', async(req, res) => {
+    const min = 1;
+    const max = 30000;
+    //const rand = min + Math.random() * (max - min);
+    for(let i = min; i < max; i++){
+      console.log(parseInt(min + Math.random() * (max - min)));
+    };
+    res.redirect('/');
+  });
+
   app.listen(3000, err => {
     console.log('Futiba Club Server in running...')
   });  

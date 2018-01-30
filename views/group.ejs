@@ -109,8 +109,14 @@
                             <input class="form-control" style="text-align: center; vertical-align: middle" maxlength="3" value="<%= game.guess_a %>" name="game_<%= game.id %>[a]">
                           <% } %>
                         </td>
+                        <td>
+                          <span><img src="<%= game.flag_team_a %>" border="0" height="40"></span>
+                        </td>
                         <td width="5%" style="font-size: 22px; font-weight: bold; text-align: center; vertical-align: middle !important;">
                           X
+                        </td>
+                        <td>
+                          <span><img src="<%= game.flag_team_b %>" border="0" height="40"></span>
                         </td>
                         <td width="10%">
                           <% if(game.guess_b) { %>

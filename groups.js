@@ -35,7 +35,9 @@ const init = connection => {
 						games.*, 
 						guessings.result_a as guess_a, 
 						guessings.result_b as guess_b,
-						guessings.score
+						guessings.score,
+						(select flag_img from teams where name=games.team_a) as flag_team_a,
+						(select flag_img from teams where name=games.team_b) as flag_team_b					
 					FROM games 
 					LEFT JOIN guessings 
 						ON  games.id           = guessings.game_id 

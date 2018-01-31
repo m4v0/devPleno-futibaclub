@@ -21,18 +21,26 @@ const init = connection => {
   });
   
   app.get('/games', async(req, res) => {
-    const [rows, fields] = await connection.execute('select * from games');
-    res.render('admin/games', {
-      games: rows
-    });
+    const [ games, fields ] = await connection.execute(`
+        select 
+          games.*,
+          (select flag_img from teams where name=games.team_a) as flag_team_a,
+          (select flag_img from teams where name=games.team_b) as flag_team_b					
+        from 
+          games
+        `);
+    const [ teams ] = await connection.execute('select * from teams');
+    res.render('admin/games', { games, teams });
   });
 
   app.post('/games', async(req, res) => {
     const { team_a, team_b } = req.body;
-    await connection.execute('insert into games(team_a, team_b) value (?,?)',[
-      team_a,
-      team_b
-    ]);
+    if(!team_a || !team_b) {
+      await connection.execute('insert into games(team_a, team_b) value (?,?)',[
+        team_a,
+        team_b
+      ]);
+    }
     res.redirect('/admin/games');
   });
 
@@ -77,6 +85,11 @@ const init = connection => {
         ]);
       });
       await Promise.all(batch);
+      await connection.execute('UPDATE games SET result_a = ?, result_b = ? where id = ? limit 1', [
+        game.result_a,
+        game.result_b,
+        game.game_id
+      ]);
     };
     res.redirect('/admin/games');
   });

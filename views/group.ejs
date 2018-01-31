@@ -99,7 +99,7 @@
                   <td>
                     <table width="100%" border="0">
                       <tr>
-                        <td width="40%" style="text-align: right; vertical-align: middle">
+                        <td width="25%" style="font-size: 22px; font-weight: bold; text-align: right; vertical-align: middle">
                           <%= game.team_a %> 
                         </td>
                         <td width="10%">
@@ -125,13 +125,14 @@
                             <input class="form-control" style="text-align: center; vertical-align: middle" maxlength="3" value="<%= game.guess_b %>" name="game_<%= game.id %>[b]">
                           <% } %>
                         </td>
-                        <td width="40%"  style="text-align: left; vertical-align: middle">
+                        <td width="40%"  style="font-size: 22px; font-weight: bold; text-align: left; vertical-align: middle">
                           <%= game.team_b %> 
                         </td>
-                    </tr> 
-                  </table>
-                </td>
-                  <td style="text-align: center; vertical-align: middle">
+                        <tb width="10%"></tb>
+                      </tr> 
+                    </table>
+                  </td>
+                  <td style="font-size: 22px; font-weight: bold; text-align: center; vertical-align: middle">
                     <%= game.score %>
                   </td>
                 </tr>

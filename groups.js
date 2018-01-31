@@ -80,6 +80,7 @@ const init = connection => {
 		await Promise.all(batch);
 		res.redirect('/groups/' + req.params.id);
 	});
+
 	// Permite ou Nega a entrada num grupo do usuário logado
 	app.get('/:id/pending/:idGU/:op', async(req, res) => {
 		
@@ -120,6 +121,14 @@ const init = connection => {
 			res.redirect('/groups');
 		};
 	});
+
+	app.get('/delete/:id', async(req, res) => {
+		await connection.execute('delete from groups where id = ? limit 1', [
+			req.params.id
+		]);
+    res.redirect('/groups');
+	});
+
     
 	// Metodo POST
 	app.post('/', async(req, res) => {

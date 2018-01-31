@@ -20,7 +20,6 @@ h6 {
   }
 }
               
-
 .navbar-inner {
   min-height: 0px;
 }
@@ -37,4 +36,38 @@ h6 {
 
 .content{
   margin: 140px 0 0 0;
+}
+
+.div-selected {
+  width:290px;  /* Tamanho final do select */
+  overflow:hidden; /* Esconde o conteúdo que passar do tamanho especificado */
+}
+
+.div-selected select {
+  border-radius: 0.25rem;
+  box-shadow: 1px 1px 5px #929292;
+
+  margin: 5px;
+  background: no-repeat #007bff;
+  /* background: url(/img-futiba-club/ico-seta-select.gif) no-repeat #354880;
+  background-position: 205px center; */
+  width: 270px;
+  height: 48px;
+  /* font-family: Arial, Helvetica, sans-serif;  */
+  font-size: 18px;
+  /* padding: 13px 20px 13px 12px; */
+  /* Cor da Fonte */
+  color:#fff; 
+  /* Remove seta padrão do FireFox */
+  text-indent: 0.01px; 
+  /* Remove seta padrão do FireFox */
+  text-overflow: "";
+  /* Remove seta padrão do IE*/
+  select::-ms-expand {display: none;}
+
+}
+
+.div-selected:focus, .div-selected.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
 }
